@@ -3,6 +3,7 @@ node_modules/
 !.env.example
 jsconfig.json
 chatAppERD.txt
+dbAccount.txt
 
 # REACT
 # Logs
