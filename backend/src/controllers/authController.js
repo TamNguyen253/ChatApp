@@ -9,11 +9,11 @@ const REFRESH_TOKEN_TTL = 14 * 24 * 60 * 60 * 1000; // 14 ngày theo ms
 
 export const signUp = async (req, res) => {
     try {
-        const { username, password, email, firstName, lastName } = req.body;
+        const { username, password, email, firstname, lastname } = req.body;
 
-        if (!username || !password || !email || !firstName || !lastName) {
+        if (!username || !password || !email || !firstname || !lastname) {
             return res.status(400).json({
-                message: "Không thể thiếu username, password, email, firstName, lastName",
+                message: "Không thể thiếu username, password, email, firstname, lastname",
             });
         }
 
@@ -32,7 +32,7 @@ export const signUp = async (req, res) => {
             username,
             hashedPassword,
             email,
-            displayName: `${firstName} ${lastName}`,
+            displayName: `${firstname} ${lastname}`,
         });
 
         //return
@@ -67,7 +67,9 @@ export const signIn = async (req, res) => {
         }
 
         // nếu khớp -> tạo accessToken với JWT
-        const accessToken = jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET, { expiresIn: ACCESS_TOKEN_TTL });
+        const accessToken = jwt.sign({ userId: user._id }, process.env.ACCESS_TOKEN_SECRET, {
+            expiresIn: ACCESS_TOKEN_TTL,
+        });
 
         // tạo refreshToken
         const refreshToken = crypto.randomBytes(64).toString("hex");
